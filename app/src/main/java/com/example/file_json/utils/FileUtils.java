@@ -2,8 +2,6 @@ package com.example.file_json.utils;
 
 import android.content.Context;
 
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,6 +22,15 @@ public class FileUtils {
                 new InputStreamReader(fis, StandardCharsets.UTF_8);
 
         StringBuilder stringBuilder = new StringBuilder();
+        try(BufferedReader reader = new BufferedReader(inputStreamReader)) {
+            String line = reader.readLine();
+            while (line != null) {
+                stringBuilder.append(line).append('\n');
+                line = reader.readLine();
+            }
+        } catch (IOException e) {
+
+        }
         return stringBuilder.toString().trim();
     }
 
